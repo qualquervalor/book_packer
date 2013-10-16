@@ -1,0 +1,26 @@
+This files contains notes about how this solution could be extended to handle other scenarios.
+
+1. 	Domains beyond Amazon.com.
+Finding the relevant information requires analyzing the source document for the location of
+useful information.  In my solution I tried to isolate the logic that extracts the relevant
+information in the class AmazonToBookMapper.  New version of this class would have to be
+created for each specific combination of Domain and ProductModel.  
+
+2.Products beyond simply books.
+To move beyond books we just need new model representing those items and the logic to map
+the location of the source data to the model.  I created an Item interface in my solution
+that was useful for handling the weight generically for the packing solution.  In my solution,
+any object that implements this interface should be packable by the same algorithm
+
+3. Parse and ship 2,000,000 books (in a reasonably time frame; e.g., polynomial time) instead of merely 20.
+The packing algorithm I used was simple and worked fine for a limited data set.  A better solution would
+have been to utilize a genetic algorithm to optimize the solution.  This way multiple packing solution
+could have been evaluated to provide a solution that may have reached the lower bin bound represented
+by the total mass of the books to be packed by the weight Tolerance of the boxes that were available.
+
+I was not familiar with the available HTML parsers, to decide if one was faster than another.
+There are also area where the solution could have been speed up by distributing the process.
+Each HTML page could have been parsed concurrently.  If we did use a genetic algorithm as part 
+of the packing solution, multiple solution could be evaluated concurrently also.  The bin packing problem
+is traditionally  NP-Hard.  Thus a genetic algorithm is a good way to search the solution space
+without exhaustively trying all solutions.
